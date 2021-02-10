@@ -30,26 +30,14 @@
 				<div class="row">
 					<div class="col-lg-3 col-md-4 col-12">
 						<div class="shop-sidebar">
-							<?php 
-								$query = query("SELECT * FROM categories");
-								confirm($query);
-								while($row = fetch_array($query)) :
 
-								$category.=	'<div class="single-widget category">
+								<!-- Single Widget -->
+								<div class="single-widget category">
 									<h3 class="title">Categories</h3>
 									<ul class="categor-list">
-										<li><a href="#">Fans</a></li>
-										<li><a href="#">Lamps</a></li>
-										<li><a href="#">Camera</a></li>
-										<li><a href="#">Controller</a></li>
+										<?php get_categories(); ?>
 									</ul>
-								</div>';
-
-							?>
-							echo $ategory
-								<!-- Single Widget -->
-							
-							<?php endwhile; ?>
+								</div>
 								<!--/ End Single Widget -->
 								<!-- Shop By Price -->
 									<div class="single-widget range">

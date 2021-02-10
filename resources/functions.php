@@ -100,8 +100,9 @@ DELIMETER;
 
                 		while($row = mysqli_fetch_array($query)) {
 $categories_links = <<<DELIMETER
-
-	<a href='category.php?id={$row['cat_id']}' class='list-group-item'>{$row['cat_title']} </a>
+									<li><a href="category.php?id={$row['cat_id']}">{$row['cat_title']}</a></li>
+										
+									
 
 DELIMETER;
 //dipsplay the categories

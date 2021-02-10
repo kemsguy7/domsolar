@@ -18,7 +18,7 @@
 		  		if(substr($name, 0 , 8) == "product_") {
 
 			  		// pull out the id of the session by finding the length
-			  		$length = strlen($name - 8); //find out the  length of the string
+			  		$length = strlen($name) - (8);//find out the  length of the string
 
 			  		$id = substr($name, 8 , $length);
 			  				  	
@@ -145,7 +145,7 @@ $quantity++;
 		  		if(substr($name, 0 , 8) == "product_") {
 
 			  		// pull out the id of the session by finding the length
-			  		$length = strlen($name - 8); //find out the  length of the string
+			  		$length = strlen($name) - (8); //find out the  length of the string
 			  		$id = substr($name, 8 , $length);
 			  		$status = 'completed';
 			  		$date = date_create()->format('Y-m-d H:i:s');
