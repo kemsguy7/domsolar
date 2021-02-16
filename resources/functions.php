@@ -61,7 +61,7 @@
 	FRONT END  Functions*/
 
 	function get_products() { //displays products on the home page in the public area
-		$query = query("SELECT * FROM products"); //		query is a helper function defined above
+		$query = query("SELECT * FROM products WHERE product_quantity >= 1"); //		query is a helper function defined above, the query selects all products with a quantity greater or equal to 1
 		confirm($query);
 		while($row = fetch_array($query)) { //fetch array is a helper function defined above
 
@@ -96,7 +96,7 @@ DELIMETER;
 	function get_categories() {
 						$query = query("SELECT * FROM categories");
 						confirm($query);
-                		
+
 
                 		while($row = mysqli_fetch_array($query)) {
 $categories_links = <<<DELIMETER
@@ -110,10 +110,24 @@ DELIMETER;
                 		}
 	}
 
+	function get_unique_category() {
+
+						$id = $_GET['id'];
+                		$category = query("SELECT * FROM categories WHERE cat_id = $id" ); //This gets the name of the category title. to be displayed on the unique category.php page for each categories.
+                		confirm($category);
+
+                	while($row = mysqli_fetch_array($category)) {
+					              			
+     					echo "<h3> {$row['cat_title']} </h3>";
+
+
+					}
+	}
 	
 	function get_products_in_cat_page() { // this function controls the get request for the category page
-		$query = query("SELECT * FROM products WHERE product_category_id = " . escape_string($_GET['id']) . " "); //		query is a helper function defined above
+		$query = query("SELECT * FROM products WHERE product_category_id = " . escape_string($_GET['id']) . " AND  product_quantity >= 1 "); //		query is a helper function defined above
 		confirm($query);
+	
 		while($row = fetch_array($query)) { //fetch array is a helper function defined above
 
 		$product_image = display_image($row['product_image']);
@@ -123,10 +137,11 @@ DELIMETER;
                 <div class="thumbnail">
                     <img src="../resources/{$product_image}" alt="">
                     <div class="caption">
-                        <h3>{$row['product_title']}</h3>
+                        <h4>{$row['product_title']}</h4>
                         <p>Lorem Ipsum</p>
                         	<p class="block1">
-                            		<a href="../resources/cart.php?add={$row['product_id']}" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                            		
+                                <a class="btn btn-primary" target="_blank" href="../resources/cart.php?add={$row['product_id']}">Add to Cart</a>
                         </p><br><br>
                     </div>
                 </div>
@@ -142,7 +157,7 @@ DELIMETER;
 
 
 	function get_products_in_shop_page() { // this function controls the get request for the category page
-		$query = query("SELECT * FROM products"); //		query is a helper function defined above
+		$query = query("SELECT * FROM products  WHERE product_quantity >= 1"); //		query is a helper function defined above
 		confirm($query);
 		while($row = fetch_array($query)) { //fetch array is a helper function defined above
 
@@ -427,7 +442,7 @@ function update_product() {
 			}
 
 
-			move_uploaded_file($image_temp_location , UPLOAD_DIRECTORY . DS .  $product_image); //move the image to the temporary location
+			move_uploaded_file($image_temp_location, UPLOAD_DIRECTORY . DS .  $product_image); //move the image to the temporary location
 
 
 			$query = "UPDATE products SET ";
